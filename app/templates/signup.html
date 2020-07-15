@@ -1,0 +1,71 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en",dir="ltr">
+<head>
+  <meta charset="utf-8">
+	<title>Social Hub Signup or Login</title>
+	<link rel="stylesheet" href={% static 'css/signup.css' %}>
+</head>
+<body>
+	<header class="">
+    <div class="logoname">
+      <h1>Social Hub</h1>
+
+    </div>
+    <div class="login-form">
+      <form class=""  method="post" enctype="multipart/form-data" action="{% url 'app:login' %}">
+        {% csrf_token %}
+        <div class="">
+
+        </div>
+        <div class="form">
+          <span>Email</span>
+          <input type="email" name="email" value="">
+        </div>
+        <div class="form">
+          <span>Password</span>
+          <input type="password" name="password" value="">
+
+        </div>
+        <div class="login-button">
+          <button type="submit" name="button">Login</button>
+
+        </div>
+      </form>
+
+    </div>
+    <div class="">
+
+    </div>
+
+	</header>
+  <section class="section1 ">
+    <div class="">
+
+    </div>
+    <div class="registeration-form">
+      <h1>Create a new account</h1>
+      <p>It's quick and easy.</p>
+      <form class="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="r-form1">
+          <input type="text" name="first_name" value="" placeholder="First Name">
+          <input type="text" name="last_name" value="" placeholder="Last Name" >
+        </div>
+        <div class="r-form2">
+          <input type="email" name="email" value="" placeholder="Email">
+          <input type="password" name="password" value="" placeholder="Password">
+          <input type="date" name="birthday" value="" placeholder="Birthday">
+          <input type="text" name="gender" value="" placeholder="Gender">
+          <label for="image">Your image</label>
+          <input type="file" name="image" value="" id="image">
+          <p>By clicking Sign Up, you agree to our Terms, Data Policy and Cookie Policy. You may receive SMS notifications from us and can opt out at any time.</p>
+          <button type="submit" name="button">Submit</button>
+        </div>
+      </form>
+
+    </div>
+
+  </section>
+</body>
+</html>

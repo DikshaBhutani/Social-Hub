@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Profile</title>
+    <link rel="stylesheet" href="css/profile.css">
+    <script src="https://use.fontawesome.com/9ec2186b0f.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <header class="">
+      <div class="logo-container">
+        <div class="logo">
+          <img src="images/fb.png" alt="">
+        </div>
+      </div>
+      <div class="search-bar">
+        <input type="text" name="" value="" placeholder="Search">
+      </div>
+      <div class="nav">
+        <ul>
+          <li>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-play" aria-hidden="true"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="profile">
+        <div class="profile-pic">
+          <img src="images/download.jpg" alt="">
+        </div>
+        <div class="username">
+          <h3>Diksha Bhutani</h3>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu">
+
+      <ul>
+        <li>
+          <a href="#"><i class="fa fa-user" aria-hidden="true"></i>Profile</a>
+        </li>
+        <li>
+          <a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <section class="profile-container">
+
+      <div class="cover-pic edit">
+        <img src="images/cover.jpg" alt="">
+        <a href="#">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          Edit
+        </a>
+      </div>
+
+      <div class="profile-picture edit">
+        <img src="images/download.jpg" alt="">
+        <a href="#">
+          <i class="fa fa-pencil" aria-hidden="true"></i>
+          Edit
+        </a>
+      </div>
+
+      <div class="name-and-bio">
+        <h1>Diksha Bhutani</h1>
+        <a onclick="addbio()" class="add-bio">Add Bio</a>
+        <form class="" action="index.html" method="post">
+          <textarea name="name" rows="8" placeholder="Describe Yourself "></textarea>
+          <button type="button" name="button" class="add-btn">Add</button>
+          <button type="button" name="button" onclick="nobio()">Cancel</button>
+        </form>
+      </div>
+
+      <div class="timeline">
+        <h3>Timeline</h3>
+
+        <div class="post ">
+          <div class="post-maker">
+            <div class="profile-pic">
+              <img src="images/download.jpg" alt="">
+            </div>
+            <h1>Diksha Bhutani</h1>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse ci</p>
+          <div class="post-img">
+            <img src="images/download.jpg" alt="">
+          </div>
+          <div class="likes-comments">
+            <div class="like">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i><h5>Like (100)</h5>
+            </div>
+            <div class="comment">
+              <form class="" action="index.html" method="post">
+                <input type="text" name="" value="" placeholder="Comment">
+                <button type="submit" name="button">Post</button>
+              </form>
+            </div>
+          </div>
+          <span>Comments</span>
+          <div class="recent-comments" id="">
+                <h4>Diksha Bhutani</h4>
+                <p>Hey</p>
+          </div>
+        </div>
+
+        <div class="post ">
+          <div class="post-maker">
+            <div class="profile-pic">
+              <img src="images/download.jpg" alt="">
+            </div>
+            <h1>Diksha Bhutani</h1>
+          </div>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse ci</p>
+          <div class="post-img">
+            <img src="images/download.jpg" alt="">
+          </div>
+          <div class="likes-comments">
+            <div class="like">
+                <i class="fa fa-thumbs-up" aria-hidden="true"></i><h5>Like (100)</h5>
+            </div>
+            <div class="comment">
+              <form class="" action="index.html" method="post">
+                <input type="text" name="" value="" placeholder="Comment">
+                <button type="submit" name="button">Post</button>
+              </form>
+            </div>
+          </div>
+          <span>Comments</span>
+          <div class="recent-comments" id="">
+                <h4>Diksha Bhutani</h4>
+                <p>Hey</p>
+          </div>
+        </div>
+
+      </div>
+
+    </section>
+
+
+
+      <script src="js/home.js" ></script>
+  </body>
+</html>

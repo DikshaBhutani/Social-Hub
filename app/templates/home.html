@@ -1,0 +1,209 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Home</title>
+    <link rel="stylesheet" href={% static 'css/home.css' %}>
+    <script src="https://use.fontawesome.com/9ec2186b0f.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  </head>
+  <body>
+
+    <header class="">
+      <div class="logo-container">
+        <div class="logo">
+          <img src={% static 'images/fb.png' %} alt="">
+        </div>
+      </div>
+      <div class="search-bar">
+        <input type="text" name="" value="" placeholder="Search">
+      </div>
+      <div class="nav">
+        <ul>
+          <li>
+            <a href="#"><i class="fa fa-home" aria-hidden="true"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-play" aria-hidden="true"></i></a>
+          </li>
+          <li>
+            <a href="#"><i class="fa fa-users" aria-hidden="true"></i></a>
+          </li>
+        </ul>
+      </div>
+      <div class="profile">
+        <div class="profile-pic">
+          <img src="{{user_info.profile_pic.url}}" alt="">
+        </div>
+        <div class="username">
+          <h3>{{user_info.user.first_name}}</h3>
+        </div>
+      </div>
+    </header>
+
+    <div class="menu">
+
+      <ul>
+        <li>
+          <a href="{% url 'app:profile' user.id user.id %}"><i class="fa fa-user" aria-hidden="true"></i>Profile</a>
+        </li>
+        <li>
+          <a href="{% url 'app:user_logout' %}"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a>
+        </li>
+      </ul>
+
+    </div>
+
+    <section class="post-container">
+<!--in make post the action part -this is a link of a particular user(user.id)-->
+      <form class="make-post" method="post" enctype="multipart/form-data" action="{% url 'app:makepost' user.id %}">
+        {% csrf_token %}
+        <div class="post-text">
+          <div class="profile-pic">
+            <img src="{{user_info.profile_pic.url}}" alt="">
+          </div>
+          <div class="text">
+            <input type="text" name="text" value="" placeholder="What's on your mind ?">
+          </div>
+        </div>
+
+
+
+        <div class="post-visual">
+          <ul>
+            <li>
+              <label for="image"><i class="fa fa-picture-o" aria-hidden="true"></i>Image</label>
+              <input type="file" name="image" value="" id="image">
+            </li>
+            <li>
+              <label for="video"><i class="fa fa-video-camera" aria-hidden="true"></i>Video</label>
+              <input type="file" name="video" value="" id="video">
+            </li>
+          </ul>
+        </div>
+        <button type="submit" name="button">Post</button>
+
+      </form>
+
+<!--for each and every post(i) in all_posts which is a list-->
+      {% for i in all_posts %}
+      <div class="post ">
+        <div class="post-maker">
+          <div class="profile-pic">
+            <!--providing the link or url to different different users profile_pic--> 
+            <img src="{{i.user_info.profile_pic.url}}" alt="">
+          </div>
+          <h1>{{i.user.first_name}} {{i.user.last_name}}</h1>
+        </div>
+        <p>{{i.text}}</p>
+        {% if i.image %}
+        <div class="post-img">
+          <img src="{{i.image.url}}" alt="">
+        </div>
+        {% endif %}
+        {% if i.video %}
+        <div class="post-video">
+          <video src="{{i.video.url}}" controls>
+          </video>
+        </div>
+        {% endif %}
+        <div class="likes-comments" data-catid={{user.id}}>
+          <div class="like" data-catid={{i.id}}>
+              <i class="fa fa-thumbs-up" aria-hidden="true"></i><h5 id="like{{i.id}}">Like ({{i.l}})</h5>
+          </div>
+          <div class="comment">
+            <form id="comment-form" method="post" enctype="multipart/form-data" data-catid={{i.id}}>
+              {% csrf_token %}
+              <input type="text" name="" value="" placeholder="Comment" id="comment{{i.id}}">
+              <button type="submit" name="button">Post</button>
+            </form>
+          </div>
+        </div>
+        <span id="n-comment{{i.id}}">Comments ({{i.c}})</span>
+        <div class="recent-comments" id="recent-comment{{i.id}}">
+          {% for c in all_comments %}
+            {% if forloop.parentloop.counter == forloop.counter %}
+              {% for cmt in c %}
+              <h4>{{cmt.user.first_name}} {{cmt.user.last_name}}</h4>
+              <p>{{cmt.body}}</p>
+              {% endfor %}
+              {% endif %}
+          {% endfor %}
+
+        </div>
+      </div>
+    {% endfor %}
+
+
+
+      <div class="user-list">
+
+        <h2>Users</h2>
+
+        {% for i in all_users %}
+        <a href="{% url 'app:profile' user.id i.user.id %}" class="post-maker">
+          <div class="profile-pic">
+            <img src="{{i.profile_pic.url}}" alt="">
+          </div>
+          <h1>{{i.user.first_name}} {{i.user.last_name}}</h1>
+        </a>
+        {% endfor %}
+
+
+      </div>
+
+    </section>
+
+  <script src={% static 'js/home.js' %} ></script>
+  <script type="text/javascript">
+
+
+    $(".like").click(function(){
+      var catid,user;
+      catid = $(this).attr("data-catid");
+      user = $(".likes-comments").attr("data-catid");
+      $.ajax(
+        {
+          url:"/likepost/",
+          data:{
+            post_id:catid,
+            user_id:user,
+          },
+          success:function(data) {
+            var id = "like" + catid;
+            document.getElementById(id).innerHTML = "Likes(" + data +")";
+          }
+        }
+      )
+    })
+
+    $(document).on('submit' , "#comment-form" , function(e){
+      e.preventDefault();
+      var catid,user,body;
+      catid = $(this).attr('data-catid');
+      user = $(".likes-comments").attr("data-catid");
+      body = document.getElementById('comment'+catid).value;
+      console.log(catid + " " + user + " "+ body);
+      $.ajax(
+        {
+          url:"/comment",
+          data:{
+            post_id:catid,
+            user_id:user,
+            body:body,
+          },
+          success:function(data){
+            document.getElementById("n-comment"+catid).innerHTML = "Comments(" + data[3] + ")";
+            document.getElementById("recent-comment"+catid).innerHTML = "<h4>" + data[0]+" "+data[1] +"</h4><p>"+data[2]+"</p>" + document.getElementById("recent-comment"+catid).innerHTML;
+            document.getElementById('comment'+catid).value = "";
+          }
+        }
+      )
+
+
+    })
+
+  </script>
+  </body>
+</html>
